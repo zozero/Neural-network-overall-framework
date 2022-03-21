@@ -5,6 +5,7 @@
 import math
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas
 
 from 多层感知机类 import 多层感知机
