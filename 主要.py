@@ -12,7 +12,8 @@ from 多层感知机类 import 多层感知机
 
 # 按间距中的绿色按钮以运行脚本。
 if __name__ == '__main__':
-    数据 = pandas.read_csv('./数据/mnist-demo.csv', nrows=30)
+    # 数据 = pandas.read_csv('./数据/mnist-demo.csv', nrows=30)
+    数据 = pandas.read_csv('./数据/mnist-demo.csv')
 
     # 展示数据
     # 展示数量 = 25
@@ -34,8 +35,8 @@ if __name__ == '__main__':
     测试数据 = 数据.drop(训练数据.index).values
     训练数据 = 训练数据.values
 
-    # 训练样本数=1700
-    训练样本数 = 30
+    # 训练样本数 = 30
+    训练样本数 = 17
     # 第一列是标签,得去掉
     x训练 = 训练数据[:训练样本数, 1:]
     y训练 = 训练数据[:训练样本数, [0]]
@@ -51,3 +52,9 @@ if __name__ == '__main__':
     阿尔法 = 0.1
 
     感知机 = 多层感知机(x训练, y训练, 行列数, 是否归一化)
+    损失值矩阵 = 感知机.训练(最大迭代次数, 阿尔法)
+    西塔值矩阵 = 感知机.西塔值矩阵
+    plt.plot(range(len(损失值矩阵)),损失值矩阵)
+    plt.xlabel("grident")
+    plt.ylabel("costs")
+    plt.show()
