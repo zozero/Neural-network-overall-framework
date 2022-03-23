@@ -36,7 +36,7 @@ if __name__ == '__main__':
     训练数据 = 训练数据.values
 
     # 训练样本数 = 30
-    训练样本数 = 17
+    训练样本数 = 5000
     # 第一列是标签,得去掉
     x训练 = 训练数据[:训练样本数, 1:]
     y训练 = 训练数据[:训练样本数, [0]]
@@ -48,13 +48,37 @@ if __name__ == '__main__':
     行列数 = [784, 25, 10]
 
     是否归一化 = True
-    最大迭代次数 = 300
+    最大迭代次数 = 500
     阿尔法 = 0.1
 
     感知机 = 多层感知机(x训练, y训练, 行列数, 是否归一化)
     损失值矩阵 = 感知机.训练(最大迭代次数, 阿尔法)
     西塔值矩阵 = 感知机.西塔值矩阵
-    plt.plot(range(len(损失值矩阵)),损失值矩阵)
-    plt.xlabel("grident")
-    plt.ylabel("costs")
+
+    # plt.plot(range(len(损失值矩阵)),损失值矩阵)
+    # plt.xlabel("grident")
+    # plt.ylabel("costs")
+    # plt.show()
+
+    预测结果 = 感知机.预测(x测试)
+    准确率 = np.sum(y测试 == 预测结果) / y测试.shape[0] * 100
+    print("准确率", 准确率)
+
+    展示数量 = 64
+    单元数 = math.ceil(math.sqrt(展示数量))
+    plt.figure(figsize=(15, 15))
+    for 绘图索引 in range(展示数量):
+        标签 = y测试[绘图索引, 0]
+        数据 = x测试[绘图索引, :]
+        预测标签 = 预测结果[绘图索引][0]
+
+        图片大小 = int(math.sqrt(数据.shape[0]))
+        帧 = 数据.reshape((图片大小, 图片大小))
+        颜色 = 'Greens' if 标签 == 预测标签 else 'Reds'
+        plt.subplot(单元数, 单元数, 绘图索引 + 1)
+        plt.imshow(帧, cmap=颜色)
+        plt.title(预测标签)
+        plt.tick_params(axis='both', which='both', bottom=False, left=False, labelbottom=False, labelleft=False)
+
+    plt.subplots_adjust(wspace=0.5, hspace=0.5)
     plt.show()
