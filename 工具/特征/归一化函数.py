@@ -6,8 +6,6 @@ def 归一化(特征):
 
     特征均值 = np.mean(特征, 0)
     特征标准差 = np.std(特征, 0)
-    print(特征标准差.shape)
-    exit()
 
     # 计算标准差
     if 特征.shape[0] > 1:
